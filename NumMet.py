@@ -16,7 +16,7 @@ class raices:
     def _biseccion(self):
         xr,xl=self.xr,self.xl
         f=self.f
-        ea=np.abs(xr-xl)/(xr+xl)*100
+        ea=np.abs((xr-xl)/(xr+xl))*100
         xa=(xr+xl)/2
         xm=xa
         Ea,Xa=[ea],[xm]
@@ -31,7 +31,7 @@ class raices:
                 break
             xm=(xr+xl)/2
             Xa.append(xm)
-            ea=np.abs(xm-xa)/xm*100
+            ea=np.abs((xm-xa)/xm)*100
             Ea.append(ea)
             _iter+=1
         self._Ea,self._Xa,self._iter=Ea,Xa,_iter
@@ -43,12 +43,12 @@ class raices:
         f=self.fm
         xn=f(xl)
         Xa.append(xn)
-        ea=np.abs(xn-xl)/xn*100
+        ea=np.abs((xn-xl)/xn)*100
         Ea.append(ea)
         while(ea>self.epsilon and _iter < self.max_iter):
             xl=xn
             xn=f(xl)
-            ea=np.abs(xn-xl)/xn*100
+            ea=np.abs((xn-xl)/xn)*100
             Xa.append(xn)
             Ea.append(ea)
             _iter=_iter+1
