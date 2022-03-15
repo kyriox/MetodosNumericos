@@ -1,7 +1,12 @@
 import numpy as np
-from sympy import * 
+#from sympy import * 
 from matplotlib import pyplot as plt
 
+"""
+f es la funcion de la queremos encontrar la realiza
+fm la funcion en termnino de x, solo se requiere para el el metodo iteracion  de punto fijo de
+df La derivada de la funcion f, para el metodo de Newton
+"""
 class raices:
     def __init__(self,f, fm=None, df=None):
         self.f=f
@@ -50,13 +55,13 @@ class raices:
         self._Xa,self._Ea,self._iter=Xa,Ea,_iter
         return xn  
         
-    def find(self,xl, xr=None, epsilon=0.5e-3, method='biseccion', max_iter=100):
+    def encuentra_raiz(self,xl, xr=None, epsilon=0.5e-3, method='biseccion', max_iter=100):
         self.xr,self.xl=xr,xl
         self.epsilon=epsilon
         self.method=method
         self.max_iter=max_iter
         if method in ['biseccion', 'falsa_posicion'] and xr==None:
-            raise "Es necesario proporcionar un valor para xr"
+            raise f"Es necesario proporcionar un valor para xr para el metodo de {method}"
         return getattr(self, f"_{self.method}")()
 
     def plot_limits(self,xl,xr):
@@ -77,11 +82,11 @@ if __name__ == "__main__":
         return np.exp(-x)
     def f(x):
         return np.exp(-x)-x
-    m=raices(f)
-    x=m.find(xl,xr)
+    m=raices(f)# instancia de la calse raices 
+    x=m.encuentra_raiz(xl,xr) 
     print(f"Biseccion: x={x}, f(x)={f(x)}, iteraciones={m._iter}")
-    m1=raices(f,fm=fm)
-    x=m1.find(xl,method="iteracion_punto_fijo")
+    m1=raices(f,fm=fm) # instacia para usar el metodo de  iteracion de punto fijo
+    x=m1.encuentra_raiz(xl,method="iteracion_punto_fijo")
     print(f"Iteracion punto fijo: x={x}, f(x)={f(x)}, iteraciones={m1._iter}")
             
         
